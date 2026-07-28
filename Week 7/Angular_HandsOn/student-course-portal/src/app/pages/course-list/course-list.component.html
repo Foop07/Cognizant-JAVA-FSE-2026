@@ -1,0 +1,49 @@
+<!-- Hands-On 3, Task 1: Structural directives demo -->
+
+<div class="course-list-container">
+  <h2>Course Catalog</h2>
+
+  <!-- Search section (Hands-On 7) -->
+  <div class="search-bar">
+    <input [(ngModel)]="searchTerm" placeholder="Search courses..." (keyup.enter)="onSearch()">
+    <button (click)="onSearch()">Search</button>
+  </div>
+
+  <!-- Error message (Hands-On 8) -->
+  <div *ngIf="errorMessage" class="error-message">
+    {{ errorMessage }}
+  </div>
+
+  <!-- Hands-On 3, Task 1, Step 25: *ngIf loading state -->
+  <p *ngIf="isLoading" class="loading">Loading courses...</p>
+
+  <!-- Hands-On 3, Task 1, Step 28: *ngIf with else block -->
+  <div *ngIf="courses.length > 0; else noCourses">
+    <div class="course-grid">
+      <!-- Hands-On 3, Task 1, Step 26: *ngFor with trackBy -->
+      <!-- Hands-On 2, Task 3, Step 22: Render CourseCardComponents with @Input/@Output -->
+      <app-course-card
+        *ngFor="let c of courses; let i = index; trackBy: trackByCourseId"
+        [course]="c"
+        (enrollRequested)="onEnroll($event)"
+        (click)="onCourseClick(c.id)"
+        appHighlight>
+      </app-course-card>
+    </div>
+  </div>
+
+  <!-- Hands-On 3, Task 1, Step 28: Empty state template -->
+  <ng-template #noCourses>
+    <p class="no-courses">No courses available.</p>
+  </ng-template>
+
+  <!-- Hands-On 2, Task 3, Step 24: Display selected course ID -->
+  <p *ngIf="selectedCourseId" class="selected-info">
+    Selected course ID: {{ selectedCourseId }}
+  </p>
+
+  <!-- Hands-On 9: NgRx async pipe rendering -->
+  <h3 *ngIf="(courses$ | async) as ngrxCourses">
+    Total Courses in Store: {{ ngrxCourses.length }}
+  </h3>
+</div>

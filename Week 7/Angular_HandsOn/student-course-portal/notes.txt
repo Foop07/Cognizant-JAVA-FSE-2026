@@ -1,0 +1,32 @@
+# Hands-On 1, Task 1 - Project File Explanations
+
+## angular.json
+- Workspace configuration file that defines project structure, build targets, architect configurations, and budget thresholds for the Angular CLI.
+
+## tsconfig.json
+- Root TypeScript configuration file that sets compiler options (target, module resolution, strict mode) for the entire workspace.
+
+## tsconfig.app.json
+- Extends tsconfig.json with app-specific settings; specifies the entry point (main.ts) and output directory for compiled application code.
+
+## package.json
+- Node.js manifest file listing project metadata, dependencies (Angular, RxJS, NgRx), devDependencies (CLI, TypeScript, Karma), and npm scripts (start, build, test).
+
+## src/main.ts
+- Application entry point that bootstraps the root AppComponent using the standalone API with the configuration from app.config.ts.
+
+## src/app/app.config.ts
+- Standalone application configuration file that registers root-level providers: routing, HttpClient with interceptors, and NgRx store/effects.
+
+## src/app/app.component.ts
+- Root component of the application with selector 'app-root'; contains the header and router-outlet for page navigation.
+
+## src/index.html
+- The single HTML page served by the web server; contains the <app-root> element where Angular renders the application.
+
+---
+
+## Budget Configuration (angular.json)
+Located under `architect > build > configurations > production > budgets`:
+- **maximumWarning (500kB)**: Triggers a build warning if the initial bundle exceeds this size, alerting developers to potential performance issues.
+- **maximumError (1MB)**: Causes the build to FAIL if the initial bundle exceeds this size, enforcing a hard limit on bundle size for production.

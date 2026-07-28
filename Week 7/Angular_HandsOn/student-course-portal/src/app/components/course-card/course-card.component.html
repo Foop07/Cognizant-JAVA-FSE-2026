@@ -1,0 +1,35 @@
+<!-- Hands-On 2, Task 3: Render course fields from @Input -->
+<!-- Hands-On 3, Task 1, Step 27: *ngSwitch for grade status badge -->
+<!-- Hands-On 3, Task 2: ngClass and ngStyle attribute directives -->
+
+<div class="course-card" [ngClass]="cardClasses" [ngStyle]="borderStyle">
+  <h3>{{ course.name }}</h3>
+  <p class="code">Code: {{ course.code }}</p>
+  <p class="credits">Credits: {{ course.credits | creditLabel }}</p>
+
+  <!-- Hands-On 3, Task 1, Step 27: *ngSwitch for grade status -->
+  <div [ngSwitch]="course.gradeStatus">
+    <span *ngSwitchCase="'passed'" class="badge badge-passed">Passed</span>
+    <span *ngSwitchCase="'failed'" class="badge badge-failed">Failed</span>
+    <span *ngSwitchCase="'pending'" class="badge badge-pending">Pending</span>
+  </div>
+
+  <!-- Expandable details section -->
+  <div *ngIf="isExpanded" class="details">
+    <p>Course ID: {{ course.id }}</p>
+    <p>Full credits value: {{ course.credits }}</p>
+    <p>Status: {{ course.gradeStatus | uppercase }}</p>
+  </div>
+
+  <div class="card-actions">
+    <!-- Hands-On 3, Task 2, Step 31: Toggle expanded details -->
+    <button class="btn-details" (click)="toggleExpand()">
+      {{ isExpanded ? 'Hide Details' : 'Show Details' }}
+    </button>
+
+    <!-- Hands-On 2, Task 3, Step 21 / Hands-On 6, Task 2, Step 65: Enroll/Unenroll -->
+    <button class="btn-enroll" (click)="onEnroll()">
+      {{ isEnrolled() ? 'Unenroll' : 'Enroll' }}
+    </button>
+  </div>
+</div>
